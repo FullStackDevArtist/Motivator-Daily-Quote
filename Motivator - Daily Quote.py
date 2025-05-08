@@ -19,6 +19,17 @@ inspiringQuotes = [
 #Create Window
 firstWindow = Tk()
 
+# Set window size
+firstWindow.geometry("500x600")
+
+# Load and set background image for first window
+bgImg = Image.open("3.jpg")
+bgImg = bgImg.resize((500, 600))
+bgPhoto = ImageTk.PhotoImage(bgImg)
+bgLabel = Label(firstWindow, image=bgPhoto)
+bgLabel.place(x=0, y=0, relwidth=1, relheight=1)
+bgLabel.image = bgPhoto
+
 #give window a title
 firstWindow.title("Motivator - Daily Quote")
 firstWindow.columnconfigure(0, weight=1)
@@ -28,7 +39,8 @@ header = Label(
  firstWindow,
  text="Motivator-Daily Quote",
  font=("Helvetica", 16, "bold"),
- fg="darkblue")
+ fg="darkblue",
+ bg=None)
 header.grid(row=0, column=0, pady=10, sticky="ew")
 
 #Create Welcome message Label 
@@ -38,23 +50,44 @@ welcomeMsg = Label(
     font=("Helvetica", 12),
     fg="black",
     justify="center",
-    wraplength=400
+    wraplength=400,
+    bg=None
 )
 welcomeMsg.grid(row=1, column=0, columnspan=10, pady=(0, 20))
+
+#add image to window
+img = Image.open("1.jpg")
+#resize image
+img = img.resize((200, 200))
+photo = ImageTk.PhotoImage(img)
+
+#add image to screen
+picLabel = Label(firstWindow, image=photo, bg=None)
+picLabel.grid(row=2, column=0, pady=20)
+picLabel.image = photo   
 
 # create another window
 def openSecondWindow():
     #add title to window
     top = Toplevel(firstWindow)
     top.title("Daily Quote")
-    top.geometry("300x400")  # Made window taller to fit image
-    
+    top.geometry("500x600")  # Match first window size
+
+    # Load and set background image for second window
+    bgImg2 = Image.open("3.jpg")
+    bgImg2 = bgImg2.resize((500, 600))
+    bgPhoto2 = ImageTk.PhotoImage(bgImg2)
+    bgLabel2 = Label(top, image=bgPhoto2)
+    bgLabel2.place(x=0, y=0, relwidth=1, relheight=1)
+    bgLabel2.image = bgPhoto2
+
     # Add header label to second window
     header2 = Label(
         top,
         text="Find Motivation \nWhen You Need It!",
         font=("Helvetica", 16, "bold"),
-        fg="darkblue"
+        fg="darkblue",
+        bg=None
     )
     header2.pack(pady=10)
     
@@ -72,21 +105,21 @@ def openSecondWindow():
         top.destroy()
     
     #Add label to window
-    quoteLabel = Label(top, text="When You Need It!", font=("Helvetica", 12), wraplength=250)
+    quoteLabel = Label(top, text="When You Need It!", font=("Helvetica", 12), wraplength=250, bg=None)
     quoteLabel.pack(pady=20)
     
     # Add image to second window
-    img2 = Image.open("flowers.jpg")
+    img2 = Image.open("2.jpg")
     img2 = img2.resize((200, 200))  # Resize image
     photo2 = ImageTk.PhotoImage(img2)
     
     # Create and pack image label
-    imgLabel = Label(top, image=photo2)
+    imgLabel = Label(top, image=photo2, bg=None)
     imgLabel.pack(pady=20)
     imgLabel.image = photo2  # Keep reference
 
     # Create button frame for better layout
-    buttonFrame = Frame(top)
+    buttonFrame = Frame(top, bg=None)
     buttonFrame.pack(pady=10)
 
     # Add Inspire Me button
@@ -129,17 +162,6 @@ getQuoteButton = Button(
     font=("Helvetica", 12),
     command=openSecondWindow
 )
-getQuoteButton.grid(row=2, column=0, pady=20, padx=10, sticky="n")
-
-#add image to window
-img = Image.open("flowers.jpg")
-#resize image
-img = img.resize((200, 200))
-photo = ImageTk.PhotoImage(img)
-
-#add image to screen
-picLabel = Label(firstWindow, image=photo)
-picLabel.grid(row=20, column=10)
-picLabel.image = photo   
+getQuoteButton.grid(row=3, column=0, pady=20, padx=10, sticky="n")
 
 firstWindow.mainloop() 
